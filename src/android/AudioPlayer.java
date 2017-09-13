@@ -258,6 +258,13 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
      * Stop/Pause recording and save to the file specified when recording started.
      */
     public void stopRecording(boolean stop) {
+
+        /* Diversion from main repo */
+        if (!stop) {
+            return this.pauseRecording();
+        }
+        /* /diversion from main repo */
+
         if (this.recorder != null) {
             try{
                 if (this.state == STATE.MEDIA_RUNNING) {
@@ -282,12 +289,45 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
         }
     }
 
+
+    /* Diversions from the main repo - these will only work in Sdk versions 24+ */
+
+    /**
+     * Resume recording and save to the file specified when recording started.
+     */
+    public void pauseRecording() {
+        if (this.recorder != null) {
+            LOG.d(LOG_TAG, "pause recording (2)");
+            try {
+                this.recorder.pause();
+                this.setState(STATE.MEDIA_PAUSED);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     /**
      * Resume recording and save to the file specified when recording started.
      */
     public void resumeRecording() {
-        startRecording(this.audioFile);
+        if (this.recorder != null) {
+          LOG.d(LOG_TAG, "resume recording (2)");
+          try {
+              this.recorder.resume();
+              this.setState(STATE.MEDIA_RUNNING);
+          }
+          catch (Exception e) {
+              e.printStackTrace();
+          }
+        }
     }
+
+    /* End diversions */
+
+
 
     //==========================================================================
     // Playback
