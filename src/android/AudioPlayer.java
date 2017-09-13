@@ -261,8 +261,14 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
 
         /* Diversion from main repo */
         if (!stop) {
+            LOG.d(LOG_TAG, "stop was false");
             this.pauseRecording();
             return;
+        } else {
+            LOG.d(LOG_TAG, "stop was true");
+
+            // Resume if paused to prevent crash
+            this.resumeRecording();
         }
         /* /diversion from main repo */
 
