@@ -266,7 +266,9 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
         } else {
 
             // Resume if paused to prevent crash
-            this.resumeRecording();
+            if (this.state == STATE.MEDIA_PAUSED) {
+              this.resumeRecording();
+            }
         }
         /* /diversion from main repo */
 
