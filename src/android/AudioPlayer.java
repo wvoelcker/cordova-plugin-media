@@ -266,6 +266,8 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
         } else {
 
             // Resume if paused to prevent crash
+            // TODO:WV:20171023:Use feature detection in pauseRecording and resumeRecording to see if the pause/record
+            // feature is available (rather than relying on the calling app to know)
             if (this.state == STATE.MEDIA_PAUSED) {
               this.resumeRecording();
             }
