@@ -47,6 +47,7 @@ var Media = function(src, successCallback, errorCallback, statusCallback) {
     this.statusCallback = statusCallback;
     this._duration = -1;
     this._position = -1;
+    this._tempFileDirectory = "";
     exec(null, this.errorCallback, "Media", "create", [this.id, this.src]);
 };
 
@@ -122,6 +123,17 @@ Media.prototype.getCurrentPosition = function(success, fail) {
         me._position = p;
         success(p);
     }, fail, "Media", "getCurrentPositionAudio", [this.id]);
+};
+
+/**
+ * Get location where temporary recording-files are stored (Android only - will cause an error on other platforms, such as iOS)
+ */
+Media.prototype.getTempFileDirectory = function(success, fail) {
+    var me = this;
+    exec(function(path) {
+        me._tempFileDirectory = path;
+        success(path);
+    }, fail, "Media", "getTempFileDirectory", [this.id]);
 };
 
 /**

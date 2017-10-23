@@ -59,7 +59,7 @@ var Media = function(src, successCallback, errorCallback, statusCallback) {
 /**
  * Creates new Audio node and with necessary event listeners attached
  * @param  {Media} media Media object
- * @return {Audio}       Audio element 
+ * @return {Audio}       Audio element
  */
 function createNode (media) {
     var node = new Audio();
@@ -184,6 +184,18 @@ Media.prototype.getCurrentPosition = function(success, fail) {
         fail(err);
     }
 };
+
+/**
+ * Get location where temporary recording-files are stored (Android only - will cause an error on other platforms, such as iOS)
+ */
+Media.prototype.getTempFileDirectory = function(success, fail) {
+    var me = this;
+    exec(function(path) {
+        me._tempFileDirectory = path;
+        success(path);
+    }, fail, "Media", "getTempFileDirectory", [this.id]);
+};
+
 
 /**
  * Start recording audio file.
