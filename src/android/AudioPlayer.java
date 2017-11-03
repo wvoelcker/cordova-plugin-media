@@ -153,6 +153,12 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
             this.recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             this.recorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS); // RAW_AMR);
             this.recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC); //AMR_NB);
+
+            // Vocal recal change: improve audio quality to a similar level to the iOS plugin
+            this.recorder.setAudioEncodingBitRate(96000);
+            this.recorder.setAudioSamplingRate(44100);
+            // End vocal recall change
+
             this.tempFile = generateTempFile();
             this.recorder.setOutputFile(this.tempFile);
             try {
@@ -409,7 +415,7 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
      * Resume playing.
      */
     public void resumePlaying() {
-    	this.startPlaying(this.audioFile);
+      this.startPlaying(this.audioFile);
     }
 
     /**
