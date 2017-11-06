@@ -155,7 +155,7 @@ public class AudioPlayer implements OnCompletionListener, OnPreparedListener, On
             this.recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC); //AMR_NB);
 
             // Vocal recal change: improve audio quality to a similar level to the iOS plugin
-            this.recorder.setAudioEncodingBitRate(96000);
+            this.recorder.setAudioEncodingBitRate(32000);
             this.recorder.setAudioSamplingRate(44100);
             // End vocal recall change
 
